@@ -2,7 +2,7 @@
 
 This is a **work in progress** JavaScript port of the popular 1991 PC game [SkiFree](http://en.wikipedia.org/wiki/Skifree) by [Chris Pirih](http://ski.ihoc.net/).
 
-[**Play the game right now!**](astralproxy.github.io/skifree.js) (opens a demo page).
+[**Play this right now if you want to**](http://basicallydan.github.com/skifree.js) (opens a demo page).
 
 ## Features so far:
 
