@@ -16,7 +16,7 @@ function InfoBox(data) {
 	};
 
 	that.draw = function (dContext) {
-		dContext.font = '11px monospace';
+		dContext.font = '14px monospace';
 		var yOffset = 0;
 		that.lines.each(function (line) {
 			var fontSize = +dContext.font.slice(0,2);

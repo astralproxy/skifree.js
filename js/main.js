@@ -24,17 +24,22 @@ var mainCanvas = document.getElementById('skifree-canvas');
 var dContext = mainCanvas.getContext('2d');
 var imageSources = [ 'sprite-characters.png', 'skifree-objects.png' ];
 var global = this;
-var infoBoxControls = 'Use the mouse or WASD to control the player';
-if (isMobileDevice()) infoBoxControls = 'Tap or drag on the piste to control the player';
+var infoBoxControls = 'Use Mouse or WASD to control the player';
+if (isMobileDevice()) infoBoxControls = 'Tap or drag to control the player';
 var sprites = require('./spriteInfo');
 
 var pixelsPerMetre = 18;
 var distanceTravelledInMetres = 0;
 var monsterDistanceThreshold = 2000;
-var livesLeft = 5;
-var highScore = 0;
+
+var NUM_LIVES_MAX = 3;
+var livesLeft = NUM_LIVES_MAX;
 var loseLifeOnObstacleHit = true;
-var dropRates = {smallTree: 4, tallTree: 2, jump: 1, thickSnow: 1, rock: 1};
+
+var dropRates = {smallTree: 4, tallTree: 3, jump: 1, thickSnow: 1, rock: 1};
+var npcSpawnRate = 0.1;
+
+var highScore = 0;
 if (localStorage.getItem('highScore')) highScore = localStorage.getItem('highScore');
 
 function loadImages (sources, next) {
@@ -56,8 +61,10 @@ function loadImages (sources, next) {
 	});
 }
 
-function monsterHitsSkierBehaviour(monster, skier) {
-	skier.isEatenBy(monster, function () {
+function monsterHitsSkierBehaviour(monster, skier)
+{
+	skier.isEatenBy(monster, function ()
+	{
 		livesLeft -= 1;
 		monster.isFull = true;
 		monster.isEating = false;
@@ -77,18 +84,35 @@ function startNeverEndingGame (images) {
 
 	function resetGame () {
 		distanceTravelledInMetres = 0;
-		livesLeft = 5;
+		livesLeft = NUM_LIVES_MAX;
 		highScore = localStorage.getItem('highScore');
 		game.reset();
 		game.addStaticObject(startSign);
 	}
 
 	function detectEnd () {
-		if (!game.isPaused()) {
-			highScore = localStorage.setItem('highScore', distanceTravelledInMetres);
+		if (!game.isPaused())
+		{
+			if (localStorage.getItem('highScore'))
+			{
+				highScore = localStorage.getItem('highScore');
+
+				if (highScore === undefined || distanceTravelledInMetres > highScore)
+				{
+					highScore = localStorage.setItem('highScore', distanceTravelledInMetres);
+				}
+			}
+			else
+			{
+				highScore = distanceTravelledInMetres;
+			}
+			
 			infoBox.setLines([
 				'Game over!',
-				'Hit space to restart'
+				'SCORE: ' + distanceTravelledInMetres,
+				'High Score: ' + highScore,
+				' ',
+				'Press [Space] to reset.'
 			]);
 			game.pause();
 			game.cycle();
@@ -174,21 +198,29 @@ function startNeverEndingGame (images) {
 		if (!game.isPaused()) {
 			game.addStaticObjects(newObjects);
 
-			randomlySpawnNPC(spawnBoarder, 0.1);
+			randomlySpawnNPC(spawnBoarder, npcSpawnRate);
 			distanceTravelledInMetres = parseFloat(player.getPixelsTravelledDownMountain() / pixelsPerMetre).toFixed(1);
 
 			if (distanceTravelledInMetres > monsterDistanceThreshold) {
 				randomlySpawnNPC(spawnMonster, 0.001);
 			}
 
+			var printSpeed = 0;
+			if (player.isMoving)
+			{
+				var printSpeed = player.getSpeed() * 3;
+			}
+
 			infoBox.setLines([
 				'SkiFree.js',
 				infoBoxControls,
-				'Travelled ' + distanceTravelledInMetres + 'm',
+				' ',
+				'SPEED: ' + printSpeed + ' m/s',
+				'DISTANCE: ' + distanceTravelledInMetres + 'm',
 				'LIVES LEFT: ' + livesLeft,
+				' ',
 				'High Score: ' + highScore,
-				'Current Speed: ' + player.getSpeed()/*,
-				'Skier Map Position: ' + player.mapPosition[0].toFixed(1) + ', ' + player.mapPosition[1].toFixed(1),
+				/*'Skier Map Position: ' + player.mapPosition[0].toFixed(1) + ', ' + player.mapPosition[1].toFixed(1),
 				'Mouse Map Position: ' + mouseMapPosition[0].toFixed(1) + ', ' + mouseMapPosition[1].toFixed(1)*/
 			]);
 		}
