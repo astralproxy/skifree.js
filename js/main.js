@@ -33,7 +33,7 @@ var distanceTravelledInMetres = 0;
 var monsterDistanceThreshold = 2000;
 var livesLeft = 5;
 var highScore = 0;
-var loseLifeOnObstacleHit = false;
+var loseLifeOnObstacleHit = true;
 var dropRates = {smallTree: 4, tallTree: 2, jump: 1, thickSnow: 1, rock: 1};
 if (localStorage.getItem('highScore')) highScore = localStorage.getItem('highScore');
 
@@ -146,8 +146,7 @@ function startNeverEndingGame (images) {
 			infoBoxControls,
 			'Travelled 0m',
 			'High Score: ' + highScore,
-			'Skiers left: ' + livesLeft,
-			'Created by Dan Hough (@basicallydan)'
+			'LIVES LEFT: ' + livesLeft
 		],
 		position: {
 			top: 15,
@@ -186,9 +185,8 @@ function startNeverEndingGame (images) {
 				'SkiFree.js',
 				infoBoxControls,
 				'Travelled ' + distanceTravelledInMetres + 'm',
-				'Skiers left: ' + livesLeft,
+				'LIVES LEFT: ' + livesLeft,
 				'High Score: ' + highScore,
-				'Created by Dan Hough (@basicallydan)',
 				'Current Speed: ' + player.getSpeed()/*,
 				'Skier Map Position: ' + player.mapPosition[0].toFixed(1) + ', ' + player.mapPosition[1].toFixed(1),
 				'Mouse Map Position: ' + mouseMapPosition[0].toFixed(1) + ', ' + mouseMapPosition[1].toFixed(1)*/
