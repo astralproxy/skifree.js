@@ -43,7 +43,7 @@ if (typeof navigator !== 'undefined') {
 
 		var obstaclesHit = [];
 		var pixelsTravelled = 0;
-		var standardSpeed = 5;
+		var standardSpeed = 6;
 		var boostMultiplier = 2;
 		var turnEaseCycles = 70;
 		var speedX = 0;
