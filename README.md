@@ -1,8 +1,8 @@
 # Skifree.js
 
-This is a **work in progress** JavaScript port of the popular 1991 PC game [SkiFree](http://en.wikipedia.org/wiki/Skifree) by [Chris Pirih](http://ski.ihoc.net/).
+This is a customized version of the JavaScript port of [SkiFree](http://en.wikipedia.org/wiki/Skifree) by [Chris Pirih](http://ski.ihoc.net/).
 
-[**Play this right now if you want to**](http://basicallydan.github.com/skifree.js) (opens a demo page).
+[**Play it here!**](https://astralproxy.github.io/skifree.js) (opens a new page).
 
 ## Features so far:
 
@@ -33,34 +33,6 @@ Some features which weren't in the original which I'd like to give a go:
 * Being a snowboarder instead of a boring old skier
 * Tricks, or something?
 * Multiplayer (ooooo wouldn't that be fun?!)
-
-## F*ck this, let me play the game goddammit
-
-* Open up index.html in Chrome, or maybe even Firefox - I haven't tested it in anything but Chrome and Mobile Safari yet, and I probably won't I'm afraid
-* Go.
-
-## I like to run Unit tests before I do ANYTHING.
-
-* Right, well first you need to do an `npm install`
-* Run `mocha` and you should see some beautiful passing tests
-
-## This is pretty frickin' sweet but it's clearly not finished. I can totally improve it. Let me improve it, dammit.
-
-* We are #seekingcontributors
-* Make a pull request with your awesome additions.
-* Maybe raise an issue?
-
-If you'd like an easy way to see how the game works, you can play the original in an Emulator: https://archive.org/details/win3_WINSKI
-
-## Contributors
-
-Here's some lovely people who were kind enough to have opinions and spirit enough to make a pull request.
-
-* [@tomgrim1](https://github.com/tomgrim1)
-* [@ddoolin](https://github.com/ddoolin)
-* [@andersevenrud](https://github.com/andersevenrud)
-
-Thanks!
 
 ## Third-party credits
 
