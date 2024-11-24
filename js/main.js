@@ -39,6 +39,9 @@ var loseLifeOnObstacleHit = true;
 var dropRates = {smallTree: 4, tallTree: 3, jump: 1, thickSnow: 1, rock: 1};
 var npcSpawnRate = 0.1;
 
+var startTime = Date.now();
+var upTime = 0;
+
 var highScore = 0;
 if (localStorage.getItem('highScore')) highScore = localStorage.getItem('highScore');
 
@@ -88,6 +91,7 @@ function startNeverEndingGame (images) {
 		highScore = localStorage.getItem('highScore');
 		game.reset();
 		game.addStaticObject(startSign);
+		startTime = Date.now();
 	}
 
 	function detectEnd () {
@@ -211,13 +215,16 @@ function startNeverEndingGame (images) {
 				var printSpeed = player.getSpeed() * 3;
 			}
 
+			var deltaTime = Date.now() - startTime;
+			upTime = Math.floor(deltaTime / 1000); // in seconds
+
 			infoBox.setLines([
-				'SkiFree.js',
-				infoBoxControls,
-				' ',
-				'SPEED: ' + printSpeed + ' m/s',
-				'DISTANCE: ' + distanceTravelledInMetres + 'm',
+				'TIME: ' + upTime,
+				'DIST: ' + distanceTravelledInMetres + 'm',
+				'SPEED: ' + printSpeed + ' m/s',				
 				'LIVES LEFT: ' + livesLeft,
+				' ',
+				infoBoxControls,
 				' ',
 				'High Score: ' + highScore,
 				/*'Skier Map Position: ' + player.mapPosition[0].toFixed(1) + ', ' + player.mapPosition[1].toFixed(1),
